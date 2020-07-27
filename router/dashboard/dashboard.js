@@ -99,7 +99,7 @@ router.get("/event", (req, res) => {
 });
 
 //To remove an event
-router.post("/addevent", (req, res) => {
+router.post("/remove", (req, res) => {
   const {id,email} = req.body;
   console.log("Details to remove events are:", id, email);
   Event.find({ id: id })
