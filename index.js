@@ -33,32 +33,59 @@ app.set('view engine', 'ejs');
 
 
 
-//For testing counter
 
 const mongoose = require('mongoose');
 const Counter = require('./model/counter/counter');
-app.get("/data", (req, res)=>{
-  console.log("data entered:",req.body);
-  const counter = new Counter({
-    // id: req.body.id,
-    // sequence_value: req.body.sequence_value
-    id:"id",
-    sequence_value:"1"
-  });
-  counter
-  .save()
-  .then((counter) =>{
-    return res.status(200).json({
-      data: counter,
-      message:"data Inserted successfully"
-    })
-  })
-  .catch((err)=>{
-    return res.status(404).json({
-      err: "Something went wrong"
-    })
+const Exam = require('./model/exam/exam');
+
+
+function getValueForNextSequence(sequenceOfName){
+  var sequenceDoc = connectDB.Counter.findAndModify({
+      query:{_id: sequenceOfName },
+      update: {$inc:{sequence_value:1}},
+      new:true
+      });
+    return sequenceDoc.sequence_value;
+}
+
+
+//For testing counter
+
+
+
+// app.get("/data", (req, res)=>{
+//   console.log("data entered:",req.body);
+//   // const counter = new Counter({
+//     // id: req.body.id,
+//     // sequence_value: req.body.sequence_value
+//     id:"id",
+//     sequence_value:"0"
+//   // });
+//   counter
+//   .save()
+//   .then((counter) =>{
+//     return res.status(200).json({
+//       data: counter,
+//       message:"data Inserted successfully"
+//     })
+//   })
+//   .catch((err)=>{
+//     return res.status(404).json({
+//       err: "Something went wrong"
+//     })
+//   })
+// })
+
+
+
+app.get('/exam', (req, res)=>{
+  const exam = new Exam({
+    question_id: getValueForNextSequence("id"),
   })
 })
+
+
+
 
 
 

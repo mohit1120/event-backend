@@ -98,4 +98,51 @@ router.get("/event", (req, res) => {
     });
 });
 
+//To remove an event
+router.post("/addevent", (req, res) => {
+  const {id,email} = req.body;
+  Event.find({ id: id })
+    .exec()
+    .then((event) => {
+      try {
+        req.body = JSON.parse(req.body);
+      } catch (e) {
+        console.log(req.body);
+      }
+     
+      if (event && event.length < 1) {
+        console.log("Event doesn't exist with this passcode");
+        return res.status(200).json({
+          message: "No Event exist with this passcode",
+          success: true,
+        });
+      } else {
+        Event.deleteMany({id:id,email:email})
+        .exec()
+        .then((event)=>{
+          return res.status(200).json({
+            message:"",
+            status:true
+          })
+        })
+          .catch((err) => {
+            console.log(err);
+            return res.status(500).json({
+              message: "Something went wrong",
+              success: false,
+            });
+          });
+      }
+    })
+    .catch((err) => {
+      console.log("Error occured");
+      res.status(500).json({
+        error: err,
+        message: "Something went wrong",
+      });
+    });
+});
+
+
+
 module.exports = router;
