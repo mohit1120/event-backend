@@ -31,39 +31,6 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
-
-
-
-const mongoose = require('mongoose');
-const Counter = require('./model/counter/counter');
-const Exam = require('./model/exam/exam');
-
-
-function getValueForNextSequence(sequenceOfName){
-  var sequenceDoc = connectDB.Counter.findAndModify({
-      query:{_id: sequenceOfName },
-      update: {$inc:{sequence_value:1}},
-      new:true
-      });
-    return sequenceDoc.sequence_value;
-}
-
-
-
-app.get('/exam', (req, res)=>{
-  const exam = new Exam({
-    question_id: getValueForNextSequence("id"),
-  })
-})
-
-
-
-
-
-
-
-
-
 //for actual routes
 const User = require('./router/user/user');
 app.use('/', User);
