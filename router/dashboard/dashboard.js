@@ -106,7 +106,7 @@ router.post("/remove", (req, res) => {
     .exec()
     .then((event) => {
       try {
-        req.body = JSON.parse(req.body);
+        //req.body = JSON.parse(req.body);
       } catch (e) {
         console.log(req.body);
       }
