@@ -118,11 +118,11 @@ router.post("/remove", (req, res) => {
           success: true,
         });
       } else {
-        Event.deleteMany({id:id,email:email})
+        Event.remove({id:id})
         .exec()
         .then((event)=>{
           return res.status(200).json({
-            message:"",
+            message:"data deleted successfully",
             status:true
           })
         })
