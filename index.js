@@ -49,34 +49,6 @@ function getValueForNextSequence(sequenceOfName){
 }
 
 
-//For testing counter
-
-
-
-// app.get("/data", (req, res)=>{
-//   console.log("data entered:",req.body);
-//   // const counter = new Counter({
-//     // id: req.body.id,
-//     // sequence_value: req.body.sequence_value
-//     id:"id",
-//     sequence_value:"0"
-//   // });
-//   counter
-//   .save()
-//   .then((counter) =>{
-//     return res.status(200).json({
-//       data: counter,
-//       message:"data Inserted successfully"
-//     })
-//   })
-//   .catch((err)=>{
-//     return res.status(404).json({
-//       err: "Something went wrong"
-//     })
-//   })
-// })
-
-
 
 app.get('/exam', (req, res)=>{
   const exam = new Exam({

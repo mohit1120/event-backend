@@ -102,7 +102,7 @@ router.get("/event", (req, res) => {
 router.post("/removeevent", (req, res) => {
   const {id,email} = req.body;
   console.log("Details to remove events are:", id, email);
-  Event.find({ id: id })
+  Event.find({ id: id})
     .exec()
     .then((event) => {
       try {
